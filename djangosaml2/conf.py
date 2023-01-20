@@ -15,6 +15,7 @@
 
 import copy
 from typing import Callable, Optional, Union
+import logging
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -46,6 +47,11 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
     """
     conf = SPConfig()
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
+
+    logger = logging.getLogger('djangolsaml2')
+    logger.debug("--- conf config_settings_loader SPConfig ---")
+    logger.debug(conf)
+
     return conf
 
 
