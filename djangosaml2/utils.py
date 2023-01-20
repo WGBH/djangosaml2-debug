@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 
 
 def get_custom_setting(name: str, default=None):
+    logger.debug("--- Custom setting: " + name)
+    logger.debug(getattr(settings, name, default))
     return getattr(settings, name, default)
 
 
