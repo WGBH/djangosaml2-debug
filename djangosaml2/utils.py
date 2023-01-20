@@ -42,6 +42,8 @@ def available_idps(config: SPConfig, langpref=None, idp_to_check: str = None) ->
         langpref = "en"
 
     idps = set()
+    logger.debug('--- config.metadata ---')
+    logger.debug(dir(config.metadata))
 
     for metadata in config.metadata.metadata.values():
         # initiate a fetch to the selected idp when using MDQ, otherwise the MetaDataMDX is an empty database

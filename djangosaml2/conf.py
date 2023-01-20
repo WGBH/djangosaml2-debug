@@ -48,14 +48,14 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
     """
 
     conf = SPConfig()
-    logger.debug("--- conf SPConfig ---")
-    logger.debug(dir(conf))
-    logger.debug(dir(settings.SAML_CONFIG))
+    # logger.debug("--- conf SPConfig ---")
+    # logger.debug(dir(conf))
+    # logger.debug(dir(settings.SAML_CONFIG))
 
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
 
-    logger.debug("--- conf SPConfig after deepcopy ---")
-    logger.debug(dir(conf))
+    # logger.debug("--- conf SPConfig after deepcopy ---")
+    # logger.debug(dir(conf))
 
     return conf
 
@@ -73,16 +73,10 @@ def get_config(
     config_loader_path = config_loader_path or get_custom_setting(
         "SAML_CONFIG_LOADER", "djangosaml2.conf.config_settings_loader"
     )
-    
-    logger.debug("--- config_loader_path ---")
-    logger.debug(config_loader_path)
 
     if callable(config_loader_path):
-        logger.debug("--- is callable ---")
         config_loader = config_loader_path
     else:
-        logger.debug("--- is path ---")
         config_loader = get_config_loader(config_loader_path)
 
-    logger.debug(config_loader)
     return config_loader(request)
