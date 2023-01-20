@@ -68,10 +68,17 @@ def get_config(
     config_loader_path = config_loader_path or get_custom_setting(
         "SAML_CONFIG_LOADER", "djangosaml2.conf.config_settings_loader"
     )
+    
+    logger = logging.getLogger('djangolsaml2')
+    logger.debug("--- conf.py config_loader_path ---")
+    logger.debug(config_loader_path)
 
     if callable(config_loader_path):
+        logger.debug("--- is callable ---")
         config_loader = config_loader_path
     else:
+        logger.debug("--- is path ---")
         config_loader = get_config_loader(config_loader_path)
 
+    logger.debug(config_loader)
     return config_loader(request)
