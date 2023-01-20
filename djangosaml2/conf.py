@@ -16,6 +16,7 @@
 import copy
 from typing import Callable, Optional, Union
 import logging
+import json
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -49,11 +50,13 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
 
     conf = SPConfig()
     logger.debug("--- conf SPConfig ---")
-    logger.debug(conf)
+    logger.debug(json.dumps(conf))
+    logger.debug(json.dumps(settings.SAML_CONFIG))
+
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
 
     logger.debug("--- conf SPConfig after deepcopy ---")
-    logger.debug(conf)
+    logger.debug(json.dumps(conf))
 
     return conf
 
