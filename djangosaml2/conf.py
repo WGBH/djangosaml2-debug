@@ -45,11 +45,14 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
     The configuration can be modified based on the request being passed.
     This is the default config loader, which just loads the config from the settings.
     """
+    logger = logging.getLogger(__name__)
+
     conf = SPConfig()
+    logger.debug("--- conf SPConfig ---")
+    logger.debug(conf)
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
 
-    logger = logging.getLogger('djangolsaml2')
-    logger.debug("--- conf config_settings_loader SPConfig ---")
+    logger.debug("--- conf SPConfig after deepcopy ---")
     logger.debug(conf)
 
     return conf
