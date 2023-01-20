@@ -211,7 +211,7 @@ class LoginView(SPConfigMixin, View):
         try:
             conf = self.get_sp_config(request)
             logger.debug("--- sp saml conf ---")
-            logger.debug(conf)
+            logger.debug(dir(conf))
 
         except SourceNotFound:  # pragma: no cover
             # this is deprecated and it's here only for the doubts that something
@@ -354,6 +354,8 @@ class LoginView(SPConfigMixin, View):
                 # get request XML to build our own html based on the template
                 try:
                     location = client.sso_location(selected_idp, binding)
+                    logger.debug('--- sso location ---')
+                    logger.debug(location)
                 except TypeError as e:
                     logger.error(f"{_msg}: {e}")
                     return HttpResponse(_msg)
