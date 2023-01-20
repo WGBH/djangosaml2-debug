@@ -74,7 +74,7 @@ from .utils import (
     validate_referral_url,
 )
 
-logger = logging.getLogger("djangosaml2")
+logger = logging.getLogger(__name__)
 
 
 def _set_subject_id(session, subject_id):

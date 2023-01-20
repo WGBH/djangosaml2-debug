@@ -4,7 +4,7 @@ from django.conf import settings
 
 import saml2.client
 
-logger = logging.getLogger("djangosaml2")
+logger = logging.getLogger(__name__)
 
 
 class Saml2Client(saml2.client.Saml2Client):

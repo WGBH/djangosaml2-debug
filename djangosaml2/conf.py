@@ -16,7 +16,6 @@
 import copy
 from typing import Callable, Optional, Union
 import logging
-import json
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -27,6 +26,7 @@ from saml2.config import SPConfig
 
 from .utils import get_custom_setting
 
+logger = logging.getLogger(__name__)
 
 def get_config_loader(path: str) -> Callable:
     """Import the function at a given path and return it"""
@@ -46,17 +46,16 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
     The configuration can be modified based on the request being passed.
     This is the default config loader, which just loads the config from the settings.
     """
-    logger = logging.getLogger(__name__)
 
     conf = SPConfig()
     logger.debug("--- conf SPConfig ---")
-    logger.debug(json.dumps(conf))
-    logger.debug(json.dumps(settings.SAML_CONFIG))
+    logger.debug(conf.__dict__)
+    logger.debug(settings.SAML_CONFIG.__dict__))
 
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
 
     logger.debug("--- conf SPConfig after deepcopy ---")
-    logger.debug(json.dumps(conf))
+    logger.debug(conf.__dict__))
 
     return conf
 
@@ -75,8 +74,7 @@ def get_config(
         "SAML_CONFIG_LOADER", "djangosaml2.conf.config_settings_loader"
     )
     
-    logger = logging.getLogger('djangolsaml2')
-    logger.debug("--- conf.py config_loader_path ---")
+    logger.debug("--- config_loader_path ---")
     logger.debug(config_loader_path)
 
     if callable(config_loader_path):

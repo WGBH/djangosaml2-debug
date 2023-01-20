@@ -24,7 +24,7 @@ from django.core.exceptions import ImproperlyConfigured, MultipleObjectsReturned
 from django.contrib import auth
 from django.contrib.auth.backends import ModelBackend
 
-logger = logging.getLogger("djangosaml2")
+logger = logging.getLogger(__name__)
 
 
 def set_attribute(obj: Any, attr: str, new_value: Any) -> bool:
