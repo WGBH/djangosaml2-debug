@@ -99,7 +99,10 @@ class SPConfigMixin:
     def get_sp_config(self, request: HttpRequest) -> SPConfig:
         logger.debug("--- SP CONFIG ---")
         config_loader_path = self.get_config_loader_path(request)
-        logger.debug("-- Loader path: " + config_loader_path)
+        if (config_loader_path):
+            logger.debug("-- Loader path: " + config_loader_path)
+        else:
+            logger.debug("--- No custom loader path ---")
         conf = get_config(config_loader_path, request)
         logger.debug("-- config --")
         logger.debug(conf)
