@@ -97,6 +97,8 @@ class SPConfigMixin:
         return self.config_loader_path
 
     def get_sp_config(self, request: HttpRequest) -> SPConfig:
+        logger.debug("--- SP CONFIG ---")
+        logger.debug(get_config(self.get_config_loader_path(request), request))
         return get_config(self.get_config_loader_path(request), request)
 
     def get_state_client(self, request: HttpRequest):
