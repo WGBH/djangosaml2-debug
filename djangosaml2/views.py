@@ -201,6 +201,9 @@ class LoginView(SPConfigMixin, View):
 
         try:
             conf = self.get_sp_config(request)
+            logger.debug("--- sp saml conf ---")
+            logger.debug(conf)
+
         except SourceNotFound:  # pragma: no cover
             # this is deprecated and it's here only for the doubts that something
             # would happen the day after I'll remove it! :)
