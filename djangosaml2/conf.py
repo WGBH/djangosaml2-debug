@@ -49,13 +49,13 @@ def config_settings_loader(request: Optional[HttpRequest] = None) -> SPConfig:
 
     conf = SPConfig()
     logger.debug("--- conf SPConfig ---")
-    logger.debug(vars(conf))
-    logger.debug(vars(settings.SAML_CONFIG))
+    logger.debug(dir(conf))
+    logger.debug(dir(settings.SAML_CONFIG))
 
     conf.load(copy.deepcopy(settings.SAML_CONFIG))
 
     logger.debug("--- conf SPConfig after deepcopy ---")
-    logger.debug(vars(conf))
+    logger.debug(dir(conf))
 
     return conf
 
