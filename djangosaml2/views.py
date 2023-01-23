@@ -220,7 +220,11 @@ class LoginView(SPConfigMixin, View):
 
         # is a embedded wayf or DiscoveryService needed?
         configured_idps = available_idps(conf)
+
         selected_idp = request.GET.get("idp", None)
+
+        logger.debug("--- selected_idp ---")
+        logger.debug(selected_idp)
 
         self.conf = conf
         sso_kwargs = {}
@@ -261,6 +265,9 @@ class LoginView(SPConfigMixin, View):
         # when using MDQ and DS we need to initiate a check on the selected idp,
         # otherwise the available idps will be empty
         configured_idps = available_idps(conf, idp_to_check=selected_idp)
+
+        logger.debug("--- configured idps ---")
+        logger.debug(configured_idps)
 
         # is the first one, otherwise next logger message will print None
         if not configured_idps:  # pragma: no cover
@@ -353,6 +360,9 @@ class LoginView(SPConfigMixin, View):
             if self.post_binding_form_template:
                 # get request XML to build our own html based on the template
                 try:
+                    logger.debug('--- getting location from idp and binding ---')
+                    logger.debug(selected_idp)
+                    logger.debug(binding)
                     location = client.sso_location(selected_idp, binding)
                     logger.debug('--- sso location ---')
                     logger.debug(location)
